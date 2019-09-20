@@ -1,8 +1,6 @@
 - Build
 The build uses Apache Maven. Simply use:
-
-mvn clean install
-
+    mvn clean install
 - Add config Datasource
 gedit file apache-karaf-4.2.6/etc/org.ops4j.datasource-book.cfg
 
@@ -32,10 +30,6 @@ karaf@root()> service:list DataSource
 
 - check jdbc
 karaf@root()> jdbc:ds-list
-Name │ Service Id │ Product │ Version                              │ URL                                                        │ Status
-─────┼────────────┼─────────┼──────────────────────────────────────┼────────────────────────────────────────────────────────────┼───────
-book │ 151        │ MySQL   │ 10.4.7-MariaDB-1:10.4.7+maria~bionic │ jdbc:mysql://localhost:3306/mybook?characterEncoding=UTF-8 │ OK
-
 
 
 
