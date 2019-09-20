@@ -1,4 +1,4 @@
-# Build
+# Build 
     The build uses Apache Maven. Simply use:
     mvn clean install
 # Add config Datasource
@@ -24,15 +24,15 @@ feature:repo-add mvn:www.book/features/1.0-SNAPSHOT/xml
 ```ruby
 feature:install book-api
 ```
--   Notes:
-- check DataSource
-```ruby
+- Notes:
+  - check DataSource
+  ```ruby
     karaf@root()> service:list DataSource
-```
-- check jdbc
- ```ruby
+    ```
+  - check jdbc
+   ```ruby
     karaf@root()> jdbc:ds-list
-```
+    ```
 
 ```ruby
 feature:install book-service
