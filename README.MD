@@ -16,15 +16,15 @@ dataSourceName=book
 org.apache.karaf.features.configKey = org.ops4j.datasource-book
 
 - Install and deploy features:
-feature:repo-add mvn:www.book/features/1.0-SNAPSHOT/xml
-feature:install book-api
++   feature:repo-add mvn:www.book/features/1.0-SNAPSHOT/xml
++   feature:install book-api
 Notes:
 - check DataSource
 karaf@root()> service:list DataSource
 - check jdbc
 karaf@root()> jdbc:ds-list
-feature:install book-service
-feature:install book-rest
++   feature:install book-service
++   feature:install book-rest
 
 
 
