@@ -12,15 +12,14 @@ import java.io.Serializable;
 import java.util.Date;
 import org.hibernate.annotations.Type;
 
-@Entity(name = "booking")
-@Table(name = "booking")
-public class Booking implements Serializable {
+@Entity(name = "Book")
+@Table(name = "Book")
+public class Book implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     private static final boolean IS_ACTIVE = true;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "book_generator")
     @Column(name = "id")
     private Long id;
 
@@ -89,20 +88,20 @@ public class Booking implements Serializable {
         isActive = active;
     }
 
-    public Booking() {
+    public Book() {
     }
 
-    public Booking(String title, String description, Date publicationDate, float price) {
+    public Book(String title, String description, Date publicationDate, float price) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;
         this.price = price;
-//        this.isActive = IS_ACTIVE;;
+        this.isActive = IS_ACTIVE;;
     }
 
     @Override
     public String toString() {
-        return "Booking{" +
+        return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
