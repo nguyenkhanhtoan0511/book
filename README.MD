@@ -24,7 +24,7 @@ feature:repo-add mvn:www.book/features/1.0-SNAPSHOT/xml
 ```ruby
 feature:install book-api
 ```
-- Notes:
+- Notes check connect hibernate :
   - check DataSource
   ```ruby
     karaf@root()> service:list DataSource
