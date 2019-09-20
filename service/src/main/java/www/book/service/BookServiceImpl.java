@@ -1,8 +1,8 @@
-package www.booking.service;
+package www.book.service;
 
 import www.book.api.Book;
-import www.booking.dao.AuthorDAO;
-import www.booking.dao.BookDAO;
+import www.book.dao.AuthorDAO;
+import www.book.dao.BookDAO;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -14,8 +14,9 @@ public class BookServiceImpl implements BookService {
 
     private AuthorDAO m_authorDAO;
 
-    public BookServiceImpl(BookDAO bookDAO) {
+    public BookServiceImpl(BookDAO bookDAO, AuthorDAO authorDAO) {
         this.m_bookDAO = bookDAO;
+        this.m_authorDAO = authorDAO;
     }
 
     public BookDAO getBookDAO() {
@@ -29,40 +30,42 @@ public class BookServiceImpl implements BookService {
     public void init() {
         System.out.println("Init Book Service");
 
-        Date cDate = new Date();
-
-        Book book1 = new Book("ahihi", "success", cDate, (float) 1);
-        Book book2 = new Book("book2", "dasczx", cDate, (float) 6311.6);
-        Book book3 = new Book("book3", "house", cDate, (float) 10.2);
-        Book book4 = new Book("book4", "hibernate", cDate, (float) 60.6);
+//        Date cDate = new Date();
 //
-        add(book1);
-        add(book2);
-        add(book3);
-        add(book4);
-
-        long id = 1;
-        Book bookingID1 = get(id);
-        System.out.println("info book id: "+ id + bookingID1.toString());
-
-        Book book5 = new Book("aaaaaaaaaa", "hibernate", cDate, (float) 60.6);
-        update(1, book5);
+//        Book book11 = new Book("test", "add success", cDate, (float) 100);
+//        Book book2 = new Book("book2", "dasczx", cDate, (float) 6311.6);
+//        Book book3 = new Book("book3", "house", cDate, (float) 10.2);
+//        Book book4 = new Book("book4", "hibernate", cDate, (float) 60.6);
+////
+//        add(book11);
+//        add(book2);
+//        add(book3);
+//        add(book4);
 //
-        delete(2);
+//        long id = 1;
+//        Book bookingID1 = get(id);
+//        System.out.println("info book id: "+ id + bookingID1.toString());
 //
-        List<Book> books = listAll();
-        System.out.println("List Book -> " + books);
+//        Book book5 = new Book("aaaaaaaaaa", "hibernate", cDate, (float) 60.6);
+//        update(1, book5);
+////
+//        delete(2);
+////
+//        List<Book> books = listAll();
+//        System.out.println("List Book -> " + books);
 
 //        add and list book with authorid
 //        Book book1 = new Book("hahah", "jcoia", cDate, (float) 123);
 //        Book book2 = new Book("telephone", "message", cDate, (float) 22);
 //
 //        long idAuthor = 3;
+//        System.out.println("Info id "+ idAuthor +":" + m_authorDAO.get(idAuthor));
+//
 //        addBookwithAuthor(idAuthor, book1);
-//        addBookwithAuthor(idAuthor, book1);
+//        addBookwithAuthor(idAuthor, book2);
 //
 //        List<Book> books = listAllBookByAuthor(idAuthor);
-//        System.out.println("List Book -> " + books);
+//        System.out.println("List Book by Author id: "+ idAuthor +" -> " + books);
     }
 
     public void destroy() {
@@ -119,29 +122,29 @@ public class BookServiceImpl implements BookService {
         }
     }
 
-//    @Override
-//    public List<Book> listAllBookByAuthor(long authorId) {
-//        List<Book> books = new LinkedList<>();
-//        try{
-//            books = m_bookDAO.listAllBookByAuthor(authorId);
-//        }catch (Exception e){
-//            System.out.println("Error while list Book by Author " + e);
-//        }
-//        return books;
-//    }
-//
-//    @Override
-//    public void addBookwithAuthor(long authorId, Book book) {
-//        try{
-//            if(m_authorDAO.get(authorId)!= null){
-//                m_bookDAO.addBookwithAuthor(authorId, book);
-//            }else{
-//                throw new Exception("Author ID: " + authorId + " does not exists");
-//            }
-//        }catch (Exception e){
-//            System.out.println("Error while adding book " + e);
-//        }
-//    }
+    @Override
+    public List<Book> listAllBookByAuthor(long authorId) {
+        List<Book> books = new LinkedList<>();
+        try{
+            books = m_bookDAO.listAllBookByAuthor(authorId);
+        }catch (Exception e){
+            System.out.println("Error while list Book by Author " + e);
+        }
+        return books;
+    }
+
+    @Override
+    public void addBookWithAuthor(long authorId, Book book) {
+        try{
+            if(m_authorDAO.get(authorId)!= null){
+                m_bookDAO.addBookWithAuthor(authorId, book);
+            }else{
+                throw new Exception("Author ID: " + authorId + " does not exists");
+            }
+        }catch (Exception e){
+            System.out.println("Error while adding book " + e);
+        }
+    }
 
     @Override
     public List<Book> listAll() {
@@ -155,3 +158,4 @@ public class BookServiceImpl implements BookService {
     }
 
 }
+

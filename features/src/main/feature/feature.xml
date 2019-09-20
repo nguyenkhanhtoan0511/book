@@ -4,12 +4,10 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.3.0 http://karaf.apache.org/xmlns/features/v1.3.0">
 
-    <repository>mvn:www.booking/features/${project.version}/xml/features</repository>
     <repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>
     <repository>mvn:org.apache.aries.jax.rs/org.apache.aries.jax.rs.features/1.0.3/xml</repository>
 
-    <feature name="booking-api" version="${project.version}">
-        <bundle>mvn:www.booking/api/${project.version}</bundle>
+    <feature name="book-api" version="${project.version}">
         <feature>transaction</feature>
         <feature>jndi</feature>
         <feature>pax-jdbc-config</feature>
@@ -20,33 +18,26 @@
         <feature version="[2,3)">jpa</feature>
         <feature version="[2,3)">eclipselink</feature>
         <feature version="[5,6)">hibernate</feature>
-        <!--<feature version="[3,4)">openjpa3</feature> -->
+        <bundle>mvn:www.book/api/${project.version}</bundle>
     </feature>
 
-    <feature name="booking-service" version="${project.version}">
-        <feature>aries-blueprint</feature>
-        <feature version="${project.version}">booking-api</feature>
-        <bundle>mvn:www.booking/service/${project.version}</bundle>
+    <feature name="book-service" version="${project.version}">
+        <feature version="${project.version}">book-api</feature>
+        <bundle>mvn:www.book/service/${project.version}</bundle>
     </feature>
 
-    <!--<feature name="song-manager-rest" version="${project.version}">-->
-        <!--<feature version="${project.version}">song-manager-api</feature>-->
-        <!--<feature version="${project.version}">song-manager-service</feature>-->
-        <!--<feature dependency="true">http</feature>-->
-        <!--<requirement>osgi.service;effective:=active;filter:=(objectClass=org.osgi.service.http.HttpService)</requirement>-->
-        <!--<feature dependency="true">aries-blueprint</feature>-->
-        <!--<feature version="${cxf.version}" dependency="true">cxf</feature>-->
-        <!--<bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>-->
-        <!--<bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>-->
-        <!--<bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>-->
-        <!--<bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>-->
-        <!--<bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>-->
-        <!--<bundle>mvn:tma.com.vn/song-manager-rest/${project.version}</bundle>-->
-    <!--</feature>-->
-
-    <!--feature name="song-manager-webapp" version="${project.version}">
-        <feature prerequisite="true">war</feature>
-        <bundle>webbundle:mvn:tma.com.vn/song-manager-webapp/${project.version}/war?Web-ContextPath=example</bundle>
-    </feature-->
+    <feature name="book-rest" version="${project.version}">
+        <feature dependency="true">http</feature>
+        <requirement>osgi.service;effective:=active;filter:=(objectClass=org.osgi.service.http.HttpService)</requirement>
+        <feature dependency="true">aries-blueprint</feature>
+        <feature >cxf</feature>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
+        <feature version="${project.version}">book-service</feature>
+        <bundle>mvn:www.book/rest/${project.version}</bundle>
+    </feature>
 
 </features>

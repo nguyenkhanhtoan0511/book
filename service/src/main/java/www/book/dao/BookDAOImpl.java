@@ -1,5 +1,4 @@
-package www.booking.dao;
-
+package www.book.dao;
 
 import www.book.api.Author;
 import www.book.api.Book;
@@ -16,7 +15,7 @@ public class BookDAOImpl implements BookDAO {
     public BookDAOImpl() {
     }
 
-    @PersistenceContext(unitName = "booking-hibernate")
+    @PersistenceContext(unitName = "book-hibernate")
     private EntityManager entityManager;
 
     public void setEntityManager(EntityManager entityManager) {
@@ -77,29 +76,27 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
-//    @Transactional(Transactional.TxType.SUPPORTS)
-//    @Override
-//    public List<Book> listAllBookByAuthor(long authorId) {
-//        try {
-//            Author author = entityManager.find(Author.class, authorId);
-//            return author.getBooks();
-//        }catch (Throwable e){
-//            throw e;
-//        }
-//
-//    }
-//
-//    @Transactional(Transactional.TxType.REQUIRES_NEW)
-//    @Override
-//    public void addBookwithAuthor(long authorId, Book book) {
-//        try {
-//            Author author = entityManager.find(Author.class, authorId);
-//            author.getBooks().add(book);
-//            entityManager.merge(author);
-//        }catch (Throwable e){
-//            throw e;
-//        }
-//    }
+    @Transactional(Transactional.TxType.SUPPORTS)
+    @Override
+    public List<Book> listAllBookByAuthor(long authorId) {
+        try {
+            Author author = entityManager.find(Author.class, authorId);
+            return author.getBooks();
+        }catch (Throwable e){
+            throw e;
+        }
+    }
 
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    @Override
+    public void addBookWithAuthor(long authorId, Book book) {
+        try {
+            Author author = entityManager.find(Author.class, authorId);
+            author.getBooks().add(book);
+            entityManager.merge(author);
+        }catch (Throwable e){
+            throw e;
+        }
+    }
 
 }

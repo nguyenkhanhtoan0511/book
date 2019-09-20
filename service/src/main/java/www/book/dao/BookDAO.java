@@ -1,4 +1,4 @@
-package www.booking.dao;
+package www.book.dao;
 
 import www.book.api.Book;
 
@@ -16,8 +16,8 @@ public interface BookDAO {
 
     void delete(long id);
 
-//    List<Book> listAllBookByAuthor(long authorId);
-//
-//    void addBookwithAuthor(long authorId, Book book);
+    List<Book> listAllBookByAuthor(long authorId);
+
+    void addBookWithAuthor(long authorId, Book book);
 
 }

@@ -1,4 +1,4 @@
-package www.booking.api;
+package www.book.api;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +12,14 @@ import java.io.Serializable;
 import java.util.Date;
 import org.hibernate.annotations.Type;
 
-@Entity(name = "Book")
+@Entity(name ="Book")
 @Table(name = "Book")
 public class Book implements Serializable {
 
     private static final boolean IS_ACTIVE = true;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "book_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
