@@ -5,10 +5,9 @@
 
     <persistence-unit name="book-hibernate" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <!-- Only used when transaction-type=JTA -->
+
         <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=mybook)</jta-data-source>
-        <!-- Only used when transaction-type=RESOURCE_LOCAL -->
-        <!--<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=book)</non-jta-data-source>-->
+
         <class>www.book.api.Book</class>
         <class>www.book.api.Author</class>
         <properties>

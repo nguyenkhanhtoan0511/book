@@ -9,16 +9,16 @@
              http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd
              ">
 
-
     <cxf:bus>
         <cxf:features>
             <cxf:logging/>
         </cxf:features>
     </cxf:bus>
 
-    <jaxrs:server id="bookingRest" address="/myapp">
+    <jaxrs:server id="bookRest" address="/api">
         <jaxrs:serviceBeans>
             <ref component-id="bookBean" />
+            <ref component-id="authorBean" />
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
@@ -27,8 +27,15 @@
 
     <bean id="bookBean" class="www.book.rest.BookRestImpl" >
         <argument ref="bookService"/>
+        <argument ref="authorService"/>
+    </bean>
+
+
+    <bean id="authorBean" class="www.book.rest.AuthorRestImpl" >
+        <argument ref="authorService" />
     </bean>
 
     <reference id="bookService" interface="www.book.service.BookService"/>
+    <reference id="authorService" interface="www.book.service.AuthorService" />
 
 </blueprint>

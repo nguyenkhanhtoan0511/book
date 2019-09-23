@@ -7,23 +7,27 @@
     <jpa:enable />
     <tx:enable-annotations />
 
-    <bean id="bookDAO" class="www.book.dao.BookDAOImpl"/>
-    <!--<service ref="bookDAO" interface="www.book.dao.BookDAO"/>-->
+    <bean id="entityManager" class="www.book.util.EntityManagerUtil"/>
 
-    <bean id="authorDAO" class="www.book.dao.AuthorDAOImpl"/>
+    <bean id="bookDAO" class="www.book.dao.BookDAOImpl">
+        <argument ref="entityManager"/>
+    </bean>
 
-    <bean id="bookService" class="www.book.service.BookServiceImpl" init-method="init" destroy-method="destroy">
+    <bean id="authorDAO" class="www.book.dao.AuthorDAOImpl">
+        <argument ref="entityManager"/>
+    </bean>
+
+    <bean id="bookService" class="www.book.service.BookServiceImpl">
         <argument ref="bookDAO"/>
         <argument ref="authorDAO"/>
     </bean>
 
-    <service ref="bookService" interface="www.book.service.BookService" />
-
-    <bean id="authorService" class="www.book.service.AuthorServiceImpl" init-method="init" destroy-method="destroy">
+    <bean id="authorService" class="www.book.service.AuthorServiceImpl">
         <argument ref="authorDAO"/>
     </bean>
 
+    <!-- Export services -->
+    <service ref="bookService" interface="www.book.service.BookService" />
     <service ref="authorService" interface="www.book.service.AuthorService" />
-
 
 </blueprint>

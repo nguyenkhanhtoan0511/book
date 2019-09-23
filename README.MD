@@ -13,7 +13,7 @@ databaseName=mybook
 user=root
 password=123456
 url=jdbc:mysql://localhost:3306/mybook?characterEncoding=UTF-8
-dataSourceName=book
+dataSourceName=mybook
 org.apache.karaf.features.configKey = org.ops4j.datasource-book
 ```
 

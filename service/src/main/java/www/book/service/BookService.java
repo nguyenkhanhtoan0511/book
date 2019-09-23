@@ -12,12 +12,9 @@ public interface BookService {
 
     void add(Book book);
 
-    void update(long id, Book book);
+    void update(Book book);
 
     void delete(long id);
 //
-    List<Book> listAllBookByAuthor(long authorId);
-
-    void addBookWithAuthor(long authorId, Book book);
 
 }

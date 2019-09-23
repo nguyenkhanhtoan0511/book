@@ -16,8 +16,4 @@ public interface BookDAO {
 
     void delete(long id);
 
-    List<Book> listAllBookByAuthor(long authorId);
-
-    void addBookWithAuthor(long authorId, Book book);
-
 }

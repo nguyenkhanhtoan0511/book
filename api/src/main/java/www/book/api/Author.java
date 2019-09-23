@@ -50,8 +50,7 @@ public class Author {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(cascade= CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="author_id")
+    @OneToMany(mappedBy="author", cascade = CascadeType.ALL, fetch = FetchType.EAGER,  orphanRemoval = true)
     private List<Book> books;
 
     public Author(){}
@@ -89,7 +88,7 @@ public class Author {
         this.lastName = lastName;
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return isActive;
     }
 
@@ -120,7 +119,7 @@ public class Author {
     public void setDescription(String description) {
         this.description = description;
     }
-//
+
     public List<Book> getBooks() {
         return books;
     }

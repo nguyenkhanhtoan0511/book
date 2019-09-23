@@ -1,10 +1,13 @@
 package www.book.api;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,6 +42,21 @@ public class Book implements Serializable {
     @Type(type="yes_no")
     @Column(name = "is_active")
     private boolean isActive;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "author_id", nullable = true)
+    private Author author;
+
+    public Book() {
+    }
+
+    public Book(String title, String description, Date publicationDate, float price) {
+        this.title = title;
+        this.description = description;
+        this.publicationDate = publicationDate;
+        this.price = price;
+        this.isActive = IS_ACTIVE;;
+    }
 
     public Long getId() {
         return id;
@@ -80,7 +98,7 @@ public class Book implements Serializable {
         this.price = price;
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return isActive;
     }
 
@@ -88,15 +106,12 @@ public class Book implements Serializable {
         isActive = active;
     }
 
-    public Book() {
+    public Author getAuthor() {
+        return author;
     }
 
-    public Book(String title, String description, Date publicationDate, float price) {
-        this.title = title;
-        this.description = description;
-        this.publicationDate = publicationDate;
-        this.price = price;
-        this.isActive = IS_ACTIVE;;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     @Override
