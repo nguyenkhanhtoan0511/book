@@ -1,5 +1,6 @@
 package www.book.service;
 
+import www.book.api.Author;
 import www.book.api.Book;
 
 import java.util.List;
@@ -14,7 +15,6 @@ public interface BookService {
 
     void update(Book book);
 
-    void delete(long id);
-//
+    void deleteWithAuthor(Author author, long id);
 
 }

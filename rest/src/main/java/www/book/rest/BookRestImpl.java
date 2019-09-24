@@ -81,7 +81,8 @@ public class BookRestImpl implements BookRest{
             if(book == null){
                 throw new Exception("Book with id " + id + " does not exist");
             }
-            m_bookService.delete(id);
+            Author author = book.getAuthor();
+            m_bookService.deleteWithAuthor(author, id);
             return Response.ok().entity("Delete id " + id + " successfully").build();
         }catch(Exception e){
             return Response.serverError().entity("Delete book id " + id + " failed. " + e.getMessage()).build();

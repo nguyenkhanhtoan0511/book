@@ -43,8 +43,8 @@ public class Book implements Serializable {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "author_id", nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
     private Author author;
 
     public Book() {
@@ -55,7 +55,7 @@ public class Book implements Serializable {
         this.description = description;
         this.publicationDate = publicationDate;
         this.price = price;
-        this.isActive = IS_ACTIVE;;
+        this.isActive = IS_ACTIVE;
     }
 
     public Long getId() {

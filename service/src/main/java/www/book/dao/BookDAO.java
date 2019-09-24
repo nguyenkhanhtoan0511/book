@@ -1,5 +1,6 @@
 package www.book.dao;
 
+import www.book.api.Author;
 import www.book.api.Book;
 
 import java.util.List;
@@ -14,6 +15,6 @@ public interface BookDAO {
 
     void update(Book book);
 
-    void delete(long id);
+    void deleteWithAuthor(Author author, long id);
 
 }

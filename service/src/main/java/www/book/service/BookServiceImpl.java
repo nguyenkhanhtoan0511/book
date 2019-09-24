@@ -33,8 +33,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(long id) {
-        m_bookDAO.delete(id);
+    public void deleteWithAuthor(Author author, long id) {
+        m_bookDAO.deleteWithAuthor(author, id);
     }
 
     @Override

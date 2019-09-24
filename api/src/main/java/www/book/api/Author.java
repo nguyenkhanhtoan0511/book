@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -50,7 +49,7 @@ public class Author {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy="author", cascade = CascadeType.ALL, fetch = FetchType.EAGER,  orphanRemoval = true)
+    @OneToMany(mappedBy="author", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Book> books;
 
     public Author(){}

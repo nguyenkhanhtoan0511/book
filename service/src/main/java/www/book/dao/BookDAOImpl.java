@@ -63,13 +63,9 @@ public class BookDAOImpl implements BookDAO {
 
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     @Override
-    public void delete(long id) {
-        try {
-            Book book = get(id);
-            entityManager.remove(book);
-        }catch (Throwable e){
-            throw e;
-        }
+    public void deleteWithAuthor(Author author, long id) {
+        author.getBooks().removeIf(Book -> Book.getId() == id);
+        entityManager.merge(author);
     }
 
 }
