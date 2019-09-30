@@ -3,7 +3,6 @@ package www.book.service;
 import www.book.api.Author;
 import www.book.dao.AuthorDAO;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class AuthorServiceImpl implements AuthorService {

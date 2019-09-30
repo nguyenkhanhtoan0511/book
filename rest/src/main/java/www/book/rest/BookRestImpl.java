@@ -2,13 +2,16 @@ package www.book.rest;
 
 import www.book.api.Author;
 import www.book.api.Book;
+import www.book.response.BookResponse;
 import www.book.service.AuthorService;
 import www.book.service.BookService;
 import www.book.vo.BookVO;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BookRestImpl implements BookRest{
 
@@ -31,7 +34,7 @@ public class BookRestImpl implements BookRest{
             }
             return Response.ok().entity(bookVOs).build();
         }catch(Exception e){
-            return Response.serverError().entity("List book failed. " + e.getMessage()).build();
+            return printFailResponse("List book failed. " + e.getMessage());
         }
 
     }
@@ -42,7 +45,7 @@ public class BookRestImpl implements BookRest{
             Book book = m_bookService.get(id);
             return Response.ok().entity(new BookVO(book)).build();
         }catch(Exception e){
-            return Response.serverError().entity("Get book failed. " + e.getMessage()).build();
+            return printFailResponse("Get book failed. " + e.getMessage());
         }
     }
 
@@ -50,27 +53,38 @@ public class BookRestImpl implements BookRest{
     public Response add(Book book) {
         try{
             m_bookService.add(book);
-            return Response.ok().entity("Add book successfully").build();
+            return printPassResponse("Add book successfully");
         }catch(Exception e){
-            return Response.serverError().entity("Add book failed. " + e.getMessage()).build();
+            return printFailResponse("Add book failed. " + e.getMessage());
         }
     }
 
     @Override
-    public Response update(long id, Book book) {
+    public Response update(long id, BookVO bookVO) {
+        if (null == bookVO) {
+            return printFailResponse("Invalid input");
+        }
         try{
             Book bookFromDb =  m_bookService.get(id);
-            if(bookFromDb !=null) {
-                bookFromDb.setTitle(book.getTitle());
-                bookFromDb.setDescription(book.getDescription());
-                bookFromDb.setPrice(book.getPrice());
-                bookFromDb.setPublicationDate(book.getPublicationDate());
-                bookFromDb.setActive(book.getActive());
+            if (null == bookFromDb) {
+                throw new Exception("Book with id " + id + " does not exist");
             }
+            bookFromDb.setTitle(bookVO.getTitle());
+            bookFromDb.setDescription(bookVO.getDescription());
+            bookFromDb.setPrice(bookVO.getPrice());
+            bookFromDb.setPublicationDate(bookVO.getPublicationDate());
+            bookFromDb.setActive(bookVO.isActive());
+
+            String author_id = bookVO.getAuthor();
+            long author_long = Long.parseLong(author_id);
+            Author authorUpdate = m_authorService.get(author_long);
+
+            bookFromDb.setAuthor(authorUpdate);
+
             m_bookService.update(bookFromDb);
-            return Response.ok().entity("Update id " + id + " book successfully").build();
+            return printPassResponse("Update book successfully");
         }catch(Exception e){
-            return Response.serverError().entity("Update book id " + id + " failed. " + e.getMessage()).build();
+            return printFailResponse("Update book failed. " + e.getMessage());
         }
     }
 
@@ -83,9 +97,9 @@ public class BookRestImpl implements BookRest{
             }
             Author author = book.getAuthor();
             m_bookService.deleteWithAuthor(author, id);
-            return Response.ok().entity("Delete id " + id + " successfully").build();
+            return printPassResponse("Delete book successfully");
         }catch(Exception e){
-            return Response.serverError().entity("Delete book id " + id + " failed. " + e.getMessage()).build();
+            return printFailResponse("Delete book id " + id + " failed. " + e.getMessage());
         }
     }
 
@@ -103,7 +117,7 @@ public class BookRestImpl implements BookRest{
             }
             return Response.ok().entity(bookVOs).build();
         }catch(Exception e){
-            return Response.serverError().entity("List book with author id " + authorId + " failed. " + e.getMessage()).build();
+            return printFailResponse("List book with author id " + authorId + " failed. " + e.getMessage());
         }
     }
 
@@ -116,10 +130,23 @@ public class BookRestImpl implements BookRest{
             }
             book.setAuthor(author);
             m_bookService.add(book);
-            return Response.ok().entity("Add book with Author id " + authorId + " successfully").build();
+            return printPassResponse("Add book successfully");
         }catch(Exception e){
-            return Response.serverError().entity("Add book with id " + authorId + " failed. " + e.getMessage()).build();
+            return printFailResponse("Add book failed. " + e.getMessage());
         }
+    }
+
+    private Response printPassResponse(String message){
+        BookResponse bookResponse = new BookResponse("Ok", message);
+        return Response.ok().entity(bookResponse).build();
+    }
+
+    private Response printFailResponse(String message){
+        BookResponse bookResponse = new BookResponse("Fail", message);
+        return Response.status(Response.Status.BAD_REQUEST)
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .entity(bookResponse)
+                .build();
     }
 
 }

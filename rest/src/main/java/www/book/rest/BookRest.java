@@ -1,6 +1,7 @@
 package www.book.rest;
 
 import www.book.api.Book;
+import www.book.vo.BookVO;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,7 +34,7 @@ public interface BookRest {
     @Path("/{id}")
     @Consumes("application/json")
     @PUT
-    Response update(@PathParam("id") long id, Book book);
+    Response update(@PathParam("id") long id, BookVO bookVO);
 
     @Path("/{id}")
     @DELETE

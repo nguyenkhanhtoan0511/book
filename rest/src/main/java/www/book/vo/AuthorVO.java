@@ -1,7 +1,7 @@
 package www.book.vo;
 
 import www.book.api.Author;
-import www.book.api.Book;
+import java.util.Date;
 
 public class AuthorVO {
 
@@ -9,7 +9,8 @@ public class AuthorVO {
     private String firstName;
     private String lastName;
     private boolean isActive;
-    private String dob;
+//    private String dob;
+    private Date dob;
     private String address;
     private String description;
 
@@ -20,7 +21,10 @@ public class AuthorVO {
         this.id = author.getId();
         this.firstName = author.getFirstName();
         this.lastName = author.getLastName();
-        this.dob = author.getDob().toLocaleString();
+//        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//        this.dob = formatter.format(author.getDob());
+        this.dob = author.getDob();
+//        this.dob = author.getDob().toLocaleString();
         this.address = author.getAddress();
         this.description = author.getDescription();
     }
@@ -57,11 +61,11 @@ public class AuthorVO {
         isActive = active;
     }
 
-    public String getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
