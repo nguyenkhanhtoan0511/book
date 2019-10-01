@@ -41,6 +41,13 @@ feature:install book-service
 feature:install book-rest
 ```
 
+feature:repo-add mvn:www.book/features/1.0-SNAPSHOT/xml
+feature:install book-api
+feature:install book-service
+feature:install book-rest
+feature:install book-webapp
+
+
 
 
 

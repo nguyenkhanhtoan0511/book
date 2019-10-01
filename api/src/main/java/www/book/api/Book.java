@@ -32,7 +32,7 @@ public class Book implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
+    @Temporal(value = TemporalType.DATE)
     @Column(name = "publication_date")
     private Date publicationDate;
 

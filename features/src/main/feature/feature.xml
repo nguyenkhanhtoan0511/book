@@ -40,4 +40,9 @@
         <bundle>mvn:www.book/rest/${project.version}</bundle>
     </feature>
 
+    <feature name="book-webapp" version="${project.version}">
+        <feature prerequisite="true">war</feature>
+        <bundle>webbundle:mvn:www.book/webapp/${project.version}/war</bundle>
+    </feature>
+
 </features>

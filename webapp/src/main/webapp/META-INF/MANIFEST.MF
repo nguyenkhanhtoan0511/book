@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Build-Jdk: 1.8.0
+Built-By: nktoan
+Bundle-ManifestVersion: 2
+Bundle-Name: booking-webapp
+Bundle-SymbolicName: booking-webapp;blueprint.graceperiod:=true;blueprint.timeout:=900000
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Web-ContextPath: /

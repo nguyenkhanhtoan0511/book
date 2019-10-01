@@ -69,7 +69,7 @@ public class AuthorRestImpl implements AuthorRest {
             authorFromDb.setDob(author.getDob());
             authorFromDb.setActive(author.getActive());
             m_authorService.update(id, authorFromDb);
-            return printPassResponse("Update author id " + id + " successfully");
+            return printPassResponse("Update author successfully");
         }catch(Exception e){
             return printFailResponse("Update book author id " + id +" failed. " + e.getMessage());
         }
@@ -86,7 +86,7 @@ public class AuthorRestImpl implements AuthorRest {
                 throw new Exception("The author id " + id + " can't delete. Author is still being used by some books.");
             }
             m_authorService.delete(id);
-            return printPassResponse("Delete author id " + id + " successfully");
+            return printPassResponse("Delete author successfully");
         }catch(Exception e){
             return printFailResponse("Delete author id " + id + " failed. " + e.getMessage());
         }

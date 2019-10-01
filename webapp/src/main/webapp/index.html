@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+	<!-- <title>Book Management</title> -->
+	<meta charset="utf-8">
+	<!--  import css , icon -->
+	 
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:400'>
+    <link rel='stylesheet' type='text/css' href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' type='text/css' href="src/assets/css/style.css">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-info navbar-dark">
+      <!-- Brand/logo -->
+      <a class="navbar-brand" ui-sref="booking"><i class="fa fa-book" aria-hidden="true"></i></a>
+      
+      <!-- Links -->
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" ui-sref="book" ui-sref-active="active">Book</a></li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" ui-sref="author" ui-sref-active="active">Author</a></li>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+        <div ui-view></div>
+    </div>
+
+ 	<!-- <a ui-sref="book" ui-sref-active="active">Book</a>
+    <a ui-sref="author" ui-sref-active="active">Author</a>
+
+    <ui-view></ui-view> -->
+
+</body>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.11/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-animate.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-aria.min.js"></script>
+
+<script src="src/modules/app.js"></script>
+
+</html>

@@ -39,7 +39,7 @@ public class Author {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
+    @Temporal(value = TemporalType.DATE)
     @Column(name = "dob")
     private Date dob;
 
