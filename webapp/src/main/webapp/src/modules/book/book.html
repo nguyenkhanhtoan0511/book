@@ -60,7 +60,7 @@
 				<tr ng-repeat="book in books | orderBy:propertyName:reverse | filter:searchBook">
 					<td>{{book.id}}</td>
 					<td>{{book.title}}</td>
-					<td>{{book.price}}</td>
+					<td>${{book.price}}</td>
 					<td>{{book.publicationDate | date:"dd/MM/yyyy"}}</td>
 					<td>{{book.description}}</td>
 					<td>{{book.author}}</td>
@@ -139,11 +139,18 @@
 				</tr>
 			</tbody>
 		</table>
-		<div ng-if="status" id="status" align="center">
+
+		<div ng-if="message" id="message" align="center">
 			<b layout="row" layout-align="center center" class="md-padding status">
-				{{status}}
+				{{message}}
 			</b>
 		</div>
+		<pagination
+				ng-model="currentPage"
+				total-items="books.length"
+				max-size="maxSize"
+				boundary-links="true">
+		</pagination>
 	</div>
 
 </body>

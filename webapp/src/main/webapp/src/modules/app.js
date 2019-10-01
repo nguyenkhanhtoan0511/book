@@ -152,18 +152,30 @@
 		getBooks();
 		getAuthors();
 
+        //paging
+        $scope.filteredBooks = [];
+        $scope.currentPage = 1;
+        $scope.numPerPage = 10;
+        $scope.maxSize = 5;
+
+        $scope.$watch('currentPage + numPerPage', function() {
+            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
+            $scope.filteredBooks = $scope.books.slice(begin, end);
+        });
+
 		$scope.addBook = function(book){
 			book.publicationDate = $scope.today;
 			var authorID = $scope.select_author;
 			dataFactory.addBook(authorID, book).then(function (response) {
 	            getBooks();
-	            $scope.status = 'Add book successfully';
+                $scope.message = response.data.message;
 	        })
-	        .catch(function(err) {
-	            console.log(err);
+	        .catch(function(error) {
+	            console.log(error);
+	            $scope.message = error.data.message;
 	        });
 		}
-
 
 		$scope.updateBook = function(id, book){
 			const author = $scope.authors.find((author) => author.lastName === book.author);
@@ -172,18 +184,20 @@
             }
 			dataFactory.updateBook(id, book).then(function(response) {
 				getBooks();
-				$scope.status = 'Update book successfully';
+                $scope.message = response.data.message;
 			}).catch(function(error) {
-				console.log(error);
+                console.log(error);
+				$scope.message = error.data.message;
 			});
 		}
 
 		$scope.deleteBook = function(id){
 			dataFactory.deleteBook(id).then(function(response) {
 				getBooks();
-                $scope.status = 'Delete book successfully';
+                $scope.message = response.data.message;
 			}).catch(function(error) {
-				console.log(error);
+			    console.log(error);
+				$scope.message = error.data.message;
 			});
 		}
 
@@ -206,7 +220,6 @@
 
 		$scope.authors = [];
 		$scope.dateDefault = new Date(1970, 0, 1);
-		// $scope.dateDefault = new Date();
 
 		var convertAuthorDate = function() {
 			if ($scope.authors.length > 0) {
@@ -232,28 +245,31 @@
 			author.dob = $scope.dateDefault;
 			dataFactory.addAuthor(author).then(function (response) {
 	            getAuthors();
-                $scope.status = 'Add author successfully';
+                $scope.message = response.data.message;
 	        })
-	        .catch(function(err) {
-	            console.log(err);
+	        .catch(function(error) {
+	            console.log(error);
+	            $scope.message = error.data.message;
 	        });
 		}
 
 		$scope.updateAuthor = function(id, author){
 			dataFactory.updateAuthor(id, author).then(function(response) {
 				getAuthors();
-				$scope.status = 'Update author successfully';
+				$scope.message = response.data.message;
 			}).catch(function(error) {
-				console.log(error);
+			    console.log(error);
+				$scope.message = error.data.message;
 			});
 		}
 		
 		$scope.deleteAuthor = function(id){
 			dataFactory.deleteAuthor(id).then(function(response) {
 				getAuthors();
-				$scope.status = 'Delete author successfully';
+                $scope.message = response.data.message;
 			}).catch(function(error) {
-				console.log(error);
+			    console.log(error);
+				$scope.message = error.data.message;
 			});
 		}
 
