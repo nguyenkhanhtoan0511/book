@@ -4,154 +4,147 @@
 	<title>List Book</title>
 </head>
 <body>
-	<div class="container">
-		<div class = "d-flex mt-3 ">
-			<h2 class="p-2 mr-auto">List Book</h2>
-			<div class="p-2 ">
-				<form class="form-inline">
-					<input class="form-control mr-sm-2" type="text" placeholder="Search book" ng-model="searchBook">
-				</form>
-			</div>
-			<div class="p-2">
-				<button type="button" class="p-2 btn btn-link btn-sm" data-toggle="modal" data-target="#addBook">
-					<i class="fa fa-plus" aria-hidden="true"></i>
-				</button>
-			</div>
-    		<div class="p-2">
-    			<button type="button" class="p-2 btn btn-link btn-sm" >
-    				<i class="fa fa-refresh" aria-hidden="true" ng-click="refreshBook()"></i>
-    			</button>
-    		</div>
+<div class="container">
+	<div class = "d-flex mt-3 ">
+		<h2 class="p-2 mr-auto">List Book</h2>
+		<div class="p-2 ">
+			<form class="form-inline">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search book" ng-model="searchBook">
+			</form>
 		</div>
+		<div class="p-2">
+			<button type="button" class="p-2 btn btn-link btn-sm" data-toggle="modal" data-target="#addBook">
+				<i class="fa fa-plus" aria-hidden="true"></i>
+			</button>
+		</div>
+		<div class="p-2">
+			<button type="button" class="p-2 btn btn-link btn-sm" >
+				<i class="fa fa-refresh" aria-hidden="true" ng-click="refreshBook()"></i>
+			</button>
+		</div>
+	</div>
 
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>
-	                    <a ng-click="sortBy('title')">Title</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'title' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'title' && !reverse"></i>
-	                </th>
-	                <th>
-	                    <a ng-click="sortBy('price')">Price</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'price' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'price' && !reverse"></i>
-	                </th>
-	                 <th>
-	                    <a ng-click="sortBy('publicationDate')">Publication Date</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'publicationDate' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'publicationDate' && !reverse"></i>
-	                </th>
-                  	<th>
-	                    <a ng-click="sortBy('description')">Description</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'description' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'description' && !reverse"></i>
-	                </th>
-	                <th>
-	                    <a ng-click="sortBy('author')">Author</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'author' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'author' && !reverse"></i>
-	                </th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="book in books | orderBy:propertyName:reverse | filter:searchBook">
-					<td>{{book.id}}</td>
-					<td>{{book.title}}</td>
-					<td>${{book.price}}</td>
-					<td>{{book.publicationDate | date:"dd/MM/yyyy"}}</td>
-					<td>{{book.description}}</td>
-					<td>{{book.author}}</td>
-					<td>
-						<a class="fa fa-pencil" aria-hidden="true" href="" data-toggle="modal" data-target="#updateAuthor{{$index}}"></a>
-						<div class="modal fade" id="updateAuthor{{$index}}">
-							<div class="modal-dialog modal-lg modal-dialog-centered">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4>Edit Book {{book.id}}</h4>
-										<button class="close" data-dismiss="modal">x</button>
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<th>#</th>
+			<th>
+				<a ng-click="sortBy('title')">Title</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'title' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'title' && !reverse"></i>
+			</th>
+			<th>
+				<a ng-click="sortBy('price')">Price</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'price' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'price' && !reverse"></i>
+			</th>
+			<th>
+				<a ng-click="sortBy('publicationDate')">Publication Date</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'publicationDate' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'publicationDate' && !reverse"></i>
+			</th>
+			<th>
+				<a ng-click="sortBy('description')">Description</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'description' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'description' && !reverse"></i>
+			</th>
+			<th>
+				<a ng-click="sortBy('author')">Author</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'author' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'author' && !reverse"></i>
+			</th>
+			<th>Action</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="book in filteredBooks | orderBy:propertyName:reverse | filter:searchBook">
+			<td>{{book.id}}</td>
+			<td>{{book.title}}</td>
+			<td>${{book.price}}</td>
+			<td>{{book.publicationDate | date:"dd/MM/yyyy"}}</td>
+			<td>{{book.description}}</td>
+			<td>{{book.author}}</td>
+			<td>
+				<a class="fa fa-pencil" aria-hidden="true" href="" data-toggle="modal" data-target="#updateAuthor{{$index}}"></a>
+				<div class="modal fade" id="updateAuthor{{$index}}">
+					<div class="modal-dialog modal-lg modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4>Edit Book {{book.id}}</h4>
+								<button class="close" data-dismiss="modal">x</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group">
+										<label for="title">Title</label>
+										<input type="text" class="form-control" id="edit_title" name="edit_title" ng-model="book.title" autocomplete="nope" >
 									</div>
-									<div class="modal-body">
-										<form>
-											<div class="form-group">
-												<label for="title">Title</label>
-												<input type="text" class="form-control" id="edit_title" name="edit_title" ng-model="book.title" autocomplete="nope" >
-											</div>
-											<div class="form-group">
-												<label for="price">Price</label>
-												<input type="number" class="form-control" id="edit_price" name="edit_price" ng-model="book.price" autocomplete="nope" ></textarea>
-											</div>
-										
-											<div class="form-group">
-												<label for="publicationDate">Publication Date</label>
-												<input type="date" class="form-control" id="edit_publicationDate" name="edit_publicationDate" ng-model="book.publicationDate" autocomplete="nope" >
-											</div>
+									<div class="form-group">
+										<label for="price">Price</label>
+										<input type="number" class="form-control" id="edit_price" name="edit_price" ng-model="book.price" autocomplete="nope" ></textarea>
+									</div>
 
-											<div class="form-group">
-												<label for="description">Description</label>
-												<input type="text" class="form-control" id="edit_last_name" name="edit_last_name" ng-model="book.description" autocomplete="nope" >
-											</div>
-											<div class="form-group">
-								              	<label for="sel1">Select Author (select one):</label>
-								              	<select class="form-control" id="author" name="author" ng-model="book.author" >
-									                <option value="">- Select a author -</option>
-									                <option ng-repeat="author in authors" value="{{author.lastName}}" >{{author.firstName}} {{author.lastName}}</option>
-								              	</select>
-								              	<br>
-								            </div>
-										</form>
+									<div class="form-group">
+										<label for="publicationDate">Publication Date</label>
+										<input type="date" class="form-control" id="edit_publicationDate" name="edit_publicationDate" ng-model="book.publicationDate" autocomplete="nope" >
 									</div>
-									
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
-										<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="updateBook(book.id, book)">Save</button>
+
+									<div class="form-group">
+										<label for="description">Description</label>
+										<input type="text" class="form-control" id="edit_last_name" name="edit_last_name" ng-model="book.description" autocomplete="nope" >
 									</div>
-								</div>
+									<div class="form-group">
+										<label for="sel1">Select Author (select one):</label>
+										<select class="form-control" id="author" name="author" ng-model="book.author" >
+											<option value="">- Select a author -</option>
+											<option ng-repeat="author in authors" value="{{author.lastName}}" >{{author.firstName}} {{author.lastName}}</option>
+										</select>
+										<br>
+									</div>
+								</form>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+								<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="updateBook(book.id, book)">Save</button>
 							</div>
 						</div>
-						&nbsp;
-							<a class="fa fa-times fa-red" aria-hidden="true" href="" data-toggle="modal" data-target="#deleteBook{{$index}}"></a>
-							<div class="modal fade" id="deleteBook{{$index}}">
-							<div class="modal-dialog modal-lg modal-dialog-centered">
-								<div class="modal-content">
-									<!-- Modal Header -->
-		                            <div class="modal-header">
-		                              <h4 class="modal-title">Delete Book {{book.id}}</h4>
-		                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-		                            </div>
-		                            
-		                            <!-- Modal body -->
-		                            <div class="modal-body">
-		                              Are you sure you want to delete book '{{book.id}}'?
-		                            </div>
-		                            
-		                            <!-- Modal footer -->
-		                            <div class="modal-footer">
-		                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-		                              <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteBook(book.id)">Delete</button>
-		                            </div>
-								</div>
+					</div>
+				</div>
+				&nbsp;
+				<a class="fa fa-times fa-red" aria-hidden="true" href="" data-toggle="modal" data-target="#deleteBook{{$index}}"></a>
+				<div class="modal fade" id="deleteBook{{$index}}">
+					<div class="modal-dialog modal-lg modal-dialog-centered">
+						<div class="modal-content">
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<h4 class="modal-title">Delete Book {{book.id}}</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
-							</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
 
-		<div ng-if="message" id="message" align="center">
-			<b layout="row" layout-align="center center" class="md-padding status">
-				{{message}}
-			</b>
-		</div>
-		<pagination
-				ng-model="currentPage"
-				total-items="books.length"
-				max-size="maxSize"
-				boundary-links="true">
-		</pagination>
-	</div>
+							<!-- Modal body -->
+							<div class="modal-body">
+								Are you sure you want to delete book '{{book.id}}'?
+							</div>
+
+							<!-- Modal footer -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteBook(book.id)">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<ul class="pagination justify-content-end" >
+		<li class="page-item"><a class="page-link" href="#/" ng-click="previousPage()">Previous</a></li>
+		<li class="page-item" ng-repeat="x in [].constructor(totalPages) track by $index"><a class="page-link" href="#/" ng-click="filterBooks($index+1)">{{$index+1}}</a></li>
+		<li class="page-item"><a class="page-link" href="#/" ng-click="nextPage()">Next</a></li>
+	</ul>
+</div>
 
 </body>
 </html>
@@ -185,21 +178,21 @@
 						<input type="number" class="form-control" id="add_price" name="add_price" ng-model="book.price" autocomplete="nope" >
 					</div>
 					<div class="form-group">
-		              	<label for="sel1">Select Author (select one):</label>
-		              	<select class="form-control" id="author" name="author" ng-model="select_author" >
-			                <option value="">Select a author -</option>
-			                <option ng-repeat="author in authors" value="{{author.id}}">{{author.firstName}} {{author.lastName}}</option>
-		              	</select>
-		              	<br>
-		            </div>
+						<label for="sel1">Select Author (select one):</label>
+						<select class="form-control" id="author" name="author" ng-model="select_author" >
+							<option value="">Select a author -</option>
+							<option ng-repeat="author in authors" value="{{author.id}}">{{author.firstName}} {{author.lastName}}</option>
+						</select>
+						<br>
+					</div>
 				</form>
 			</div>
-			
+
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
 				<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="addBook(book)" >Add</button>
 			</div>
 		</div>
-		
+
 	</div>
 </div>

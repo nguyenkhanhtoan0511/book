@@ -4,142 +4,142 @@
 	<title>List Author</title>
 </head>
 <body>
-	<div class="container">
-		<div class = "d-flex mt-3 ">
-			<h2 class="p-2 mr-auto">List Author</h2>
-			<div class="p-2 ">
-				<form class="form-inline">
-					<input class="form-control mr-sm-2" type="text" placeholder="Search author" ng-model="searchAuthor">
-				</form>
-			</div>
-			<div class="p-2">
-				<button type="button" class="p-2 btn btn-link btn-sm" data-toggle="modal" data-target="#addAuthor">
-					<i class="fa fa-plus" aria-hidden="true"></i>
-				</button>
-			</div>
-    		<div class="p-2">
-    			<button type="button" class="p-2 btn btn-link btn-sm" >
-    				<i class="fa fa-refresh" aria-hidden="true" ng-click="refreshAuthor()"></i>
-    			</button>
-    		</div>
+<div class="container">
+	<div class = "d-flex mt-3 ">
+		<h2 class="p-2 mr-auto">List Author</h2>
+		<div class="p-2 ">
+			<form class="form-inline">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search author" ng-model="searchAuthor">
+			</form>
 		</div>
-		<table class = "table table-hover">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>
-	                    <a ng-click="sortBy('firstName')">First Name</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'firstName' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'firstName' && !reverse"></i>
-	                </th>
-	                <th>
-	                    <a ng-click="sortBy('lastName')">Last Name</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'lastName' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'lastName' && !reverse"></i>
-	                </th>
-	                 <th>
-	                    <a ng-click="sortBy('dob')">Date of Birth</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'dob' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'dob' && !reverse"></i>
-	                </th>
-                  	<th>
-	                    <a ng-click="sortBy('address')">Address</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'address' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'address' && !reverse"></i>
-	                </th>
-	                <th>
-	                    <a ng-click="sortBy('description')">Description</a>
-	                    <i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'description' && reverse"></i>
-	                    <i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'description' && !reverse"></i>
-	                </th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="author in authors | orderBy:propertyName:reverse | filter:searchAuthor">
-					<td>{{author.id}}</td>
-					<td>{{author.firstName}}</td>
-					<td>{{author.lastName}}</td>
-					<td>{{author.dob | date:"dd/MM/yyyy"}}</td>
-					<td>{{author.address}}</td>
-					<td>{{author.description}}</td>
-					<td>
-							<a class="fa fa-pencil" aria-hidden="true" href="" data-toggle="modal" data-target="#updateAuthor{{$index}}"></a>
-							<div class="modal fade" id="updateAuthor{{$index}}">
-							<div class="modal-dialog modal-lg modal-dialog-centered">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4>Edit Author {{author.id}}</h4>
-										<button class="close" data-dismiss="modal">x</button>
-									</div>
-									<div class="modal-body">
-										<form>
-											<div class="form-group">
-												<label for="firstName">First Name</label>
-												<input type="text" class="form-control" id="edit_first_name" name="edit_first_name" ng-model="author.firstName" autocomplete="nope">
-											</div>
-											<div class="form-group">
-												<label for="lastName">Last Name</label>
-												<input type="text" class="form-control" id="edit_last_name" name="edit_last_name" ng-model="author.lastName" autocomplete="nope">
-											</div>
-
-											<div class="form-group">
-												<label for="dob">Date of Birth</label>
-												<input type="date" class="form-control" id="edit_dob" name="edit_dob" ng-model="author.dob" autocomplete="nope">
-											</div>
-
-											<div class="form-group">
-												<label for="address">Address</label>
-												<textarea rows="2" class="form-control" id="edit_address" name="edit_address" ng-model="author.address" autocomplete="nope"></textarea>
-											</div>
-											<div class="form-group">
-												<label for="description">Description</label>
-												<textarea rows="2" class="form-control" id="edit_description" name="edit_description" ng-model="author.description" autocomplete="nope"></textarea>
-											</div>
-										</form>
-									</div>
-									
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
-										<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="updateAuthor(author.id, author)">Save</button>
-									</div>
-								</div>
-							</div>
-							</div>
-						&nbsp;
-							<a class="fa fa-times fa-red" aria-hidden="true" href="" data-toggle="modal" data-target="#deleteAuthor{{$index}}"></a>
-							<div class="modal fade" id="deleteAuthor{{$index}}">
-								<div class="modal-dialog modal-lg modal-dialog-centered">
-									<div class="modal-content">
-										<!-- Modal Header -->
-			                            <div class="modal-header">
-			                              <h4 class="modal-title">Delete Author {{author.id}}</h4>
-			                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-			                            </div>
-			                            
-			                            <!-- Modal body -->
-			                            <div class="modal-body">
-			                              Are you sure you want to delete author '{{author.id}}'?
-			                            </div>
-			                            
-			                            <!-- Modal footer -->
-			                            <div class="modal-footer">
-			                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-			                              <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteAuthor(author.id)">Delete</button>
-			                            </div>
-									</div>
-								</div>
-							</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div ng-if="message" id="message" align="center">
-			<b layout="row" layout-align="center center" class="md-padding status">
-				{{message}}
-			</b>
+		<div class="p-2">
+			<button type="button" class="p-2 btn btn-link btn-sm" data-toggle="modal" data-target="#addAuthor">
+				<i class="fa fa-plus" aria-hidden="true"></i>
+			</button>
+		</div>
+		<div class="p-2">
+			<button type="button" class="p-2 btn btn-link btn-sm" >
+				<i class="fa fa-refresh" aria-hidden="true" ng-click="refreshAuthor()"></i>
+			</button>
 		</div>
 	</div>
+	<table class = "table table-hover">
+		<thead>
+		<tr>
+			<th>#</th>
+			<th>
+				<a ng-click="sortBy('firstName')">First Name</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'firstName' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'firstName' && !reverse"></i>
+			</th>
+			<th>
+				<a ng-click="sortBy('lastName')">Last Name</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'lastName' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'lastName' && !reverse"></i>
+			</th>
+			<th>
+				<a ng-click="sortBy('dob')">Date of Birth</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'dob' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'dob' && !reverse"></i>
+			</th>
+			<th>
+				<a ng-click="sortBy('address')">Address</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'address' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'address' && !reverse"></i>
+			</th>
+			<th>
+				<a ng-click="sortBy('description')">Description</a>
+				<i class="fa fa-caret-down" aria-hidden="true" ng-show="propertyName === 'description' && reverse"></i>
+				<i class="fa fa-caret-up" aria-hidden="true" ng-show="propertyName === 'description' && !reverse"></i>
+			</th>
+			<th>Action</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="author in filteredAuthors | orderBy:propertyName:reverse | filter:searchAuthor">
+			<td>{{author.id}}</td>
+			<td>{{author.firstName}}</td>
+			<td>{{author.lastName}}</td>
+			<td>{{author.dob | date:"dd/MM/yyyy"}}</td>
+			<td>{{author.address}}</td>
+			<td>{{author.description}}</td>
+			<td>
+				<a class="fa fa-pencil" aria-hidden="true" href="" data-toggle="modal" data-target="#updateAuthor{{$index}}"></a>
+				<div class="modal fade" id="updateAuthor{{$index}}">
+					<div class="modal-dialog modal-lg modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4>Edit Author {{author.id}}</h4>
+								<button class="close" data-dismiss="modal">x</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group">
+										<label for="firstName">First Name</label>
+										<input type="text" class="form-control" id="edit_first_name" name="edit_first_name" ng-model="author.firstName" autocomplete="nope">
+									</div>
+									<div class="form-group">
+										<label for="lastName">Last Name</label>
+										<input type="text" class="form-control" id="edit_last_name" name="edit_last_name" ng-model="author.lastName" autocomplete="nope">
+									</div>
+
+									<div class="form-group">
+										<label for="dob">Date of Birth</label>
+										<input type="date" class="form-control" id="edit_dob" name="edit_dob" ng-model="author.dob" autocomplete="nope">
+									</div>
+
+									<div class="form-group">
+										<label for="address">Address</label>
+										<textarea rows="2" class="form-control" id="edit_address" name="edit_address" ng-model="author.address" autocomplete="nope"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="description">Description</label>
+										<textarea rows="2" class="form-control" id="edit_description" name="edit_description" ng-model="author.description" autocomplete="nope"></textarea>
+									</div>
+								</form>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+								<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="updateAuthor(author.id, author)">Save</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				&nbsp;
+				<a class="fa fa-times fa-red" aria-hidden="true" href="" data-toggle="modal" data-target="#deleteAuthor{{$index}}"></a>
+				<div class="modal fade" id="deleteAuthor{{$index}}">
+					<div class="modal-dialog modal-lg modal-dialog-centered">
+						<div class="modal-content">
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<h4 class="modal-title">Delete Author {{author.id}}</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<!-- Modal body -->
+							<div class="modal-body">
+								Are you sure you want to delete author '{{author.id}}'?
+							</div>
+
+							<!-- Modal footer -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteAuthor(author.id)">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<ul class="pagination justify-content-end" >
+		<li class="page-item"><a class="page-link"  ng-click="previousAuthorPage()">Previous</a></li>
+		<li class="page-item" ng-repeat="x in [].constructor(totalAuthorPages) track by $index"><a class="page-link" ng-click="filterAuthors($index+1)">{{$index+1}}</a></li>
+		<li class="page-item"><a class="page-link"  ng-click="nextAuthorPage()">Next</a></li>
+	</ul>
+</div>
 </body>
 </html>
 
@@ -175,13 +175,13 @@
 					</div>
 				</form>
 			</div>
-			
+
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
 				<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addAuthor(author)">Add</button>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
 

@@ -1,12 +1,12 @@
 (function () {
     'use strict';
 
-	var app = angular.module('myApp', ['ui.router']);
+	var app = angular.module('myApp', ['ui.router', 'ui.bootstrap.pagination']);
 
     // Constants
     app.constant('constant', {
-        // 'REST_BASE_PATH' : 'http://192.168.95.132:8181/cxf/api'
-        'REST_BASE_PATH' : window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/cxf/api'
+//        'REST_BASE_PATH' : 'http://192.168.95.132:8181/cxf/api'
+         'REST_BASE_PATH' : window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/cxf/api'
     });
 
 	app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -33,9 +33,16 @@
 	});
 
 	app.controller('myCtrl', function($scope) {
+		$scope.toast_msg = '';
+        $scope.showToast = function(msg) {
+            $scope.toast_msg = msg;
+            $(document ).ready(function() {
+                $('.toast').toast('show');
+            });
+        }
 	});
 
-    app.factory('dataFactory', function($http, constant) {		
+    app.factory('dataFactory', function($http, constant) {
     	var dataFactory = {};
         var REST_BASE_PATH = constant.REST_BASE_PATH;
 
@@ -118,6 +125,32 @@
             $scope.propertyName = propertyName;
         };
 
+        $scope.filteredBooks = [];
+		$scope.numPerPage = 5;
+        $scope.totalPages = 0;
+        $scope.currentPage = 1;
+
+        $scope.filterBooks = function(currentPage) {
+            $scope.currentPage = currentPage;
+            var begin = ($scope.currentPage - 1)*$scope.numPerPage;
+            var end = begin + $scope.numPerPage;
+            $scope.filteredBooks = $scope.books.slice(begin, end);
+        }
+
+        $scope.previousPage = function(){
+        	if($scope.currentPage > 1){
+        		$scope.currentPage -= 1;
+        		$scope.filterBooks($scope.currentPage);
+        	}
+        }
+
+         $scope.nextPage = function(){
+         	if($scope.currentPage < $scope.totalPages){
+         		$scope.currentPage += 1;
+        		$scope.filterBooks($scope.currentPage);
+         	}
+        }
+
 		$scope.books = [];
 		$scope.authors = [];
 		$scope.select_author = null;
@@ -135,6 +168,8 @@
 			dataFactory.getBooks().then(function(response) {
 				$scope.books = response.data;
 	            convertBookDate();
+             	$scope.totalPages = Math.ceil($scope.books.length / $scope.numPerPage);
+                $scope.filterBooks(1);
 			}).catch(function(error){
 				console.log(error);
 			});
@@ -144,7 +179,7 @@
 			dataFactory.getAuthors().then(function (response) {
 	            $scope.authors = response.data;
 	        }), (function (error) {
-	        
+
 	        })
 		}
 
@@ -152,28 +187,16 @@
 		getBooks();
 		getAuthors();
 
-        //paging
-        $scope.filteredBooks = [];
-        $scope.currentPage = 1;
-        $scope.numPerPage = 10;
-        $scope.maxSize = 5;
-
-        $scope.$watch('currentPage + numPerPage', function() {
-            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-            , end = begin + $scope.numPerPage;
-            $scope.filteredBooks = $scope.books.slice(begin, end);
-        });
-
 		$scope.addBook = function(book){
 			book.publicationDate = $scope.today;
 			var authorID = $scope.select_author;
 			dataFactory.addBook(authorID, book).then(function (response) {
 	            getBooks();
-                $scope.message = response.data.message;
+                $scope.toast_msg = $scope.showToast(response.data.message);
 	        })
 	        .catch(function(error) {
 	            console.log(error);
-	            $scope.message = error.data.message;
+	             $scope.toast_msg = $scope.showToast(error.data.message);
 	        });
 		}
 
@@ -184,20 +207,21 @@
             }
 			dataFactory.updateBook(id, book).then(function(response) {
 				getBooks();
-                $scope.message = response.data.message;
+				console.log(response);
+                $scope.toast_msg = $scope.showToast(response.data.message);
 			}).catch(function(error) {
                 console.log(error);
-				$scope.message = error.data.message;
+                $scope.toast_msg = $scope.showToast(error.data.message);
 			});
 		}
 
 		$scope.deleteBook = function(id){
 			dataFactory.deleteBook(id).then(function(response) {
 				getBooks();
-                $scope.message = response.data.message;
+            	$scope.toast_msg = $scope.showToast(response.data.message);
 			}).catch(function(error) {
 			    console.log(error);
-				$scope.message = error.data.message;
+			    $scope.toast_msg = $scope.showToast(error.data.message);
 			});
 		}
 
@@ -218,6 +242,33 @@
             $scope.propertyName = propertyName;
         };
 
+     	$scope.filteredAuthors = [];
+        $scope.totalAuthorPages = 0;
+		$scope.numPerAuthorPage = 5;
+        $scope.currentAuthorPage = 1;
+
+        $scope.filterAuthors = function(currentPage) {
+            $scope.currentAuthorPage = currentPage;
+            var begin = ($scope.currentAuthorPage - 1)*$scope.numPerAuthorPage;
+            var end = begin + $scope.numPerAuthorPage;
+            $scope.filteredAuthors = $scope.authors.slice(begin, end);
+            console.log($scope.filteredAuthors);
+        }
+
+        $scope.previousAuthorPage = function(){
+        	if($scope.currentAuthorPage > 1){
+        		$scope.currentAuthorPage -= 1;
+        		$scope.filterAuthors($scope.currentAuthorPage);
+        	}
+        }
+
+         $scope.nextAuthorPage = function(){
+         	if($scope.currentAuthorPage < $scope.totalAuthorPages){
+         		$scope.currentAuthorPage += 1;
+        		$scope.filterAuthors($scope.currentAuthorPage);
+         	}
+        }
+
 		$scope.authors = [];
 		$scope.dateDefault = new Date(1970, 0, 1);
 
@@ -233,6 +284,8 @@
 			dataFactory.getAuthors().then(function (response) {
 	            $scope.authors = response.data;
 	            convertAuthorDate();
+	            $scope.totalAuthorPages = Math.ceil($scope.authors.length / $scope.numPerAuthorPage);
+                $scope.filterAuthors(1);
 	        }), (function (error) {
 	        })
 		}
@@ -240,36 +293,37 @@
 		// init
 		getAuthors();
 
-		//paging
 		$scope.addAuthor = function(author){
 			author.dob = $scope.dateDefault;
 			dataFactory.addAuthor(author).then(function (response) {
 	            getAuthors();
-                $scope.message = response.data.message;
+            	$scope.toast_msg = $scope.showToast(response.data.message);
+
 	        })
 	        .catch(function(error) {
 	            console.log(error);
-	            $scope.message = error.data.message;
+	            $scope.toast_msg = $scope.showToast(error.data.message);
 	        });
 		}
 
 		$scope.updateAuthor = function(id, author){
 			dataFactory.updateAuthor(id, author).then(function(response) {
 				getAuthors();
-				$scope.message = response.data.message;
+            	$scope.toast_msg = $scope.showToast(response.data.message);
+
 			}).catch(function(error) {
 			    console.log(error);
-				$scope.message = error.data.message;
+				$scope.toast_msg = $scope.showToast(error.data.message);
 			});
 		}
-		
+
 		$scope.deleteAuthor = function(id){
 			dataFactory.deleteAuthor(id).then(function(response) {
 				getAuthors();
-                $scope.message = response.data.message;
+				$scope.toast_msg = $scope.showToast(response.data.message);
 			}).catch(function(error) {
 			    console.log(error);
-				$scope.message = error.data.message;
+				$scope.toast_msg = $scope.showToast(error.data.message);
 			});
 		}
 
