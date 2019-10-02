@@ -40,12 +40,10 @@ feature:install book-service
 ```ruby
 feature:install book-rest
 ```
-
-feature:repo-add mvn:www.book/features/1.0-SNAPSHOT/xml
-feature:install book-api
-feature:install book-service
-feature:install book-rest
+```ruby
 feature:install book-webapp
+```
+
 
 
 

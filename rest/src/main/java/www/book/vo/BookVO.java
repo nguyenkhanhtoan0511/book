@@ -9,10 +9,10 @@ public class BookVO {
     private String title;
     private String description;
     private Date publicationDate;
-//    private String publicationDate;
     private float price;
     private boolean isActive;
-    private String author;
+    private String authorFirstName;
+    private String authorLastName;
 
     public BookVO() {
     }
@@ -21,13 +21,12 @@ public class BookVO {
         this.id = book.getId();
         this.title = book.getTitle();
         this.description = book.getDescription();
-//        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, hh:mm:ss a");
-//        this.publicationDate = formatter.format(book.getPublicationDate());
         this.publicationDate = book.getPublicationDate();
         this.price = book.getPrice();
         this.isActive = book.getActive();
         if(book.getAuthor() != null){
-            this.author = book.getAuthor().getLastName();
+            this.authorFirstName = book.getAuthor().getFirstName() ;
+            this.authorLastName = book.getAuthor().getLastName() ;
         }
     }
 
@@ -79,11 +78,19 @@ public class BookVO {
         isActive = active;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthorFirstName() {
+        return authorFirstName;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorFirstName(String authorFirstName) {
+        this.authorFirstName = authorFirstName;
+    }
+
+    public String getAuthorLastName() {
+        return authorLastName;
+    }
+
+    public void setAuthorLastName(String authorLastName) {
+        this.authorLastName = authorLastName;
     }
 }

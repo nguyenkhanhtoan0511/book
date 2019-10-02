@@ -63,10 +63,10 @@
 			<td>${{book.price}}</td>
 			<td>{{book.publicationDate | date:"dd/MM/yyyy"}}</td>
 			<td>{{book.description}}</td>
-			<td>{{book.author}}</td>
+			<td>{{book.authorFirstName}} {{book.authorLastName}}</td>
 			<td>
-				<a class="fa fa-pencil" aria-hidden="true" href="" data-toggle="modal" data-target="#updateAuthor{{$index}}"></a>
-				<div class="modal fade" id="updateAuthor{{$index}}">
+				<a class="fa fa-pencil" aria-hidden="true" href="" data-toggle="modal" data-target="#updateBook{{$index}}"></a>
+				<div class="modal fade" id="updateBook{{$index}}">
 					<div class="modal-dialog modal-lg modal-dialog-centered">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -81,7 +81,7 @@
 									</div>
 									<div class="form-group">
 										<label for="price">Price</label>
-										<input type="number" class="form-control" id="edit_price" name="edit_price" ng-model="book.price" autocomplete="nope" ></textarea>
+										<input type="number" class="form-control" id="edit_price" name="edit_price" ng-model="book.price" autocomplete="nope" >
 									</div>
 
 									<div class="form-group">
@@ -91,16 +91,17 @@
 
 									<div class="form-group">
 										<label for="description">Description</label>
-										<input type="text" class="form-control" id="edit_last_name" name="edit_last_name" ng-model="book.description" autocomplete="nope" >
+										<textarea type="text" class="form-control" id="edit_description" name="edit_description" ng-model="book.description" autocomplete="nope" ></textarea>
 									</div>
+
 									<div class="form-group">
 										<label for="sel1">Select Author (select one):</label>
-										<select class="form-control" id="author" name="author" ng-model="book.author" >
+										<select class="form-control" id="author" name="author" ng-model="book.authorLastName" >
 											<option value="">- Select a author -</option>
 											<option ng-repeat="author in authors" value="{{author.lastName}}" >{{author.firstName}} {{author.lastName}}</option>
 										</select>
-										<br>
 									</div>
+
 								</form>
 							</div>
 
@@ -135,22 +136,69 @@
 						</div>
 					</div>
 				</div>
+				&nbsp;
+				<a class="fa fa-search" aria-hidden="true" href="" data-toggle="modal" data-target="#viewBook{{$index}}"></a>
+				<div class="modal fade" id="viewBook{{$index}}">
+					<div class="modal-dialog modal-lg modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4>View Book {{book.id}}</h4>
+								<button class="close" data-dismiss="modal">x</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group">
+										<label for="title">Title</label>
+										<input type="text" class="form-control" id="view_title" name="view_title" ng-model="book.title" autocomplete="nope" readonly>
+									</div>
+									<div class="form-group">
+										<label for="price">Price</label>
+										<input type="number" class="form-control" id="view_price" name="view_price" ng-model="book.price" autocomplete="nope" readonly>
+									</div>
+
+									<div class="form-group">
+										<label for="publicationDate">Publication Date</label>
+										<input type="date" class="form-control" id="view_publicationDate" name="view_publicationDate" ng-model="book.publicationDate" autocomplete="nope" readonly>
+									</div>
+
+									<div class="form-group">
+										<label for="description">Description</label>
+										<textarea type="text" class="form-control" id="view_description" name="view_description" ng-model="book.description" autocomplete="nope" readonly></textarea>
+									</div>
+									<div class="form-group">
+										<label for="author">Author</label>
+										<input type="text" class="form-control" id="view_author" name="view_author" value="{{book.authorFirstName}} {{book.authorLastName}}" autocomplete="nope" readonly>
+									</div>
+								</form>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</td>
 		</tr>
 		</tbody>
 	</table>
 	<ul class="pagination justify-content-end" >
-		<li class="page-item"><a class="page-link" href="#/" ng-click="previousPage()">Previous</a></li>
+		<li class="page-item"><a class="page-link" href="#/" ng-click="previousPage()">Pre</a></li>
 		<li class="page-item" ng-repeat="x in [].constructor(totalPages) track by $index"><a class="page-link" href="#/" ng-click="filterBooks($index+1)">{{$index+1}}</a></li>
 		<li class="page-item"><a class="page-link" href="#/" ng-click="nextPage()">Next</a></li>
 	</ul>
+	<div class="float-right ">
+		<label >Number per page: </label>
+		<input type="number" min="0" ng-model="numPerPage" autocomplete="nope" style="width: 75px">
+		<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="changeNumPerPage(numPerPage)">Change</button>
+	</div>
 </div>
 
 </body>
 </html>
 
 <!-- Modal -->
-<div class="modal fade" id="addBook">
+<div class="modal fade" id="addBook" role="dialog">
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -158,31 +206,44 @@
 				<button class="close" data-dismiss="modal">x</button>
 			</div>
 			<div class="modal-body">
-				<form name="myForm">
+				<form name="myForm" novalidate>
+
 					<div class="form-group">
 						<label for="title">Title</label>
-						<input type="text" class="form-control" id="add_title" name="add_title" ng-model="book.title" autocomplete="nope"  >
+						<input type="text" class="form-control" id="add_title" name="add_title" ng-model="book.title" autocomplete="nope" placeholder="Enter the title" required>
+						<span style="color:red" ng-show="myForm.add_title.$invalid">
+					        <span ng-show="myForm.add_title.$error.required">Title is required.</span>
+				      	</span>
 					</div>
 					<div class="form-group">
 						<label for="description">Description</label>
-						<input type="text" class="form-control" id="add_last_name" name="add_last_name" ng-model="book.description" autocomplete="nope" >
+						<input type="text" class="form-control" id="add_description" name="add_description" ng-model="book.description" autocomplete="nope" >
 					</div>
 
 					<div class="form-group">
 						<label for="publicationDate">Publication Date</label>
-						<input type="date" class="form-control" id="add_dob" name="add_dob" ng-model="today" autocomplete="nope" >
+						<input type="date" class="form-control" id="add_publication_date" name="add_publication_date" ng-model="today" autocomplete="nope" required>
+						<span style="color:red" ng-show="myForm.add_publication_date.$invalid">
+					        <span ng-show="myForm.add_publication_date.$error.required">Publication Date is required.</span>
+					      </span>
 					</div>
 
 					<div class="form-group">
 						<label for="price">Price</label>
-						<input type="number" class="form-control" id="add_price" name="add_price" ng-model="book.price" autocomplete="nope" >
+						<input type="number" min="0" class="form-control" id="add_price" name="add_price" ng-model="book.price" autocomplete="nope" required>
+						<span style="color:red" ng-show="myForm.add_price.$invalid">
+					        <span ng-show="myForm.add_price.$error.required">Price is required.</span>
+					      </span>
 					</div>
 					<div class="form-group">
 						<label for="sel1">Select Author (select one):</label>
-						<select class="form-control" id="author" name="author" ng-model="select_author" >
+						<select class="form-control" id="add_author" name="add_author" ng-model="select_author" required>
 							<option value="">Select a author -</option>
 							<option ng-repeat="author in authors" value="{{author.id}}">{{author.firstName}} {{author.lastName}}</option>
 						</select>
+						<span style="color:red" ng-show="myForm.add_author.$invalid">
+					        <span ng-show="myForm.add_author.$error.required">Please select author.</span>
+					      </span>
 						<br>
 					</div>
 				</form>
@@ -190,7 +251,8 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
-				<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="addBook(book)" >Add</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="addBook(book)" ng-disabled="myForm.add_title.$invalid ||
+  myForm.add_price.$invalid || myForm.add_publication_date.$error.required || myForm.add_author.$error.required " >Add</button>
 			</div>
 		</div>
 

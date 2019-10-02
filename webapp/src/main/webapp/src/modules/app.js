@@ -126,7 +126,7 @@
         };
 
         $scope.filteredBooks = [];
-		$scope.numPerPage = 5;
+		$scope.numPerPage = 10;
         $scope.totalPages = 0;
         $scope.currentPage = 1;
 
@@ -151,6 +151,14 @@
          	}
         }
 
+        $scope.changeNumPerPage = function(numPerPage){
+        	if(numPerPage > 0){
+        		$scope.numPerPage = numPerPage;
+        	}
+        	$scope.totalPages = Math.ceil($scope.books.length / $scope.numPerPage);
+        	$scope.filterBooks($scope.currentPage);
+        }
+
 		$scope.books = [];
 		$scope.authors = [];
 		$scope.select_author = null;
@@ -169,7 +177,7 @@
 				$scope.books = response.data;
 	            convertBookDate();
              	$scope.totalPages = Math.ceil($scope.books.length / $scope.numPerPage);
-                $scope.filterBooks(1);
+                $scope.filterBooks($scope.currentPage);
 			}).catch(function(error){
 				console.log(error);
 			});
@@ -184,8 +192,8 @@
 		}
 
 		// init
-		getBooks();
 		getAuthors();
+		getBooks();
 
 		$scope.addBook = function(book){
 			book.publicationDate = $scope.today;
@@ -201,9 +209,9 @@
 		}
 
 		$scope.updateBook = function(id, book){
-			const author = $scope.authors.find((author) => author.lastName === book.author);
+			const author = $scope.authors.find((author) => author.lastName === book.authorLastName);
             if (null != author) {
-                book.author = author.id;
+                book.authorLastName = author.id;
             }
 			dataFactory.updateBook(id, book).then(function(response) {
 				getBooks();
@@ -252,7 +260,6 @@
             var begin = ($scope.currentAuthorPage - 1)*$scope.numPerAuthorPage;
             var end = begin + $scope.numPerAuthorPage;
             $scope.filteredAuthors = $scope.authors.slice(begin, end);
-            console.log($scope.filteredAuthors);
         }
 
         $scope.previousAuthorPage = function(){
@@ -267,6 +274,14 @@
          		$scope.currentAuthorPage += 1;
         		$scope.filterAuthors($scope.currentAuthorPage);
          	}
+        }
+
+        $scope.changeNumPerPage = function(numPerPage){
+        	if(numPerPage > 0){
+        		$scope.numPerAuthorPage = numPerPage;
+        	}
+        	$scope.totalAuthorPages = Math.ceil($scope.authors.length / $scope.numPerAuthorPage);
+        	$scope.filterAuthors($scope.currentAuthorPage);
         }
 
 		$scope.authors = [];
@@ -285,7 +300,7 @@
 	            $scope.authors = response.data;
 	            convertAuthorDate();
 	            $scope.totalAuthorPages = Math.ceil($scope.authors.length / $scope.numPerAuthorPage);
-                $scope.filterAuthors(1);
+                $scope.filterAuthors($scope.currentAuthorPage);
 	        }), (function (error) {
 	        })
 		}
@@ -298,7 +313,6 @@
 			dataFactory.addAuthor(author).then(function (response) {
 	            getAuthors();
             	$scope.toast_msg = $scope.showToast(response.data.message);
-
 	        })
 	        .catch(function(error) {
 	            console.log(error);

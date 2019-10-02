@@ -49,15 +49,6 @@ public class BookRestImpl implements BookRest{
         }
     }
 
-    @Override
-    public Response add(Book book) {
-        try{
-            m_bookService.add(book);
-            return printPassResponse("Add book successfully");
-        }catch(Exception e){
-            return printFailResponse("Add book failed. " + e.getMessage());
-        }
-    }
 
     @Override
     public Response update(long id, BookVO bookVO) {
@@ -75,7 +66,7 @@ public class BookRestImpl implements BookRest{
             bookFromDb.setPublicationDate(bookVO.getPublicationDate());
             bookFromDb.setActive(bookVO.isActive());
 
-            String author_id = bookVO.getAuthor();
+            String author_id = bookVO.getAuthorLastName();
             long author_long = Long.parseLong(author_id);
             Author authorUpdate = m_authorService.get(author_long);
 

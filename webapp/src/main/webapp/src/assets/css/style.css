@@ -5,4 +5,9 @@
 .status{
     color:green;
 }
-
+.show-message{
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	width: 230px;
+}

@@ -26,11 +26,6 @@ public interface BookRest {
     @GET
     Response get(@PathParam("id") long id);
 
-    @Path("/")
-    @Consumes("application/json")
-    @POST
-    Response add(Book book);
-
     @Path("/{id}")
     @Consumes("application/json")
     @PUT
