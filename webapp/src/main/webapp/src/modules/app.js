@@ -197,7 +197,7 @@
 
 		$scope.addBook = function(book){
 			book.publicationDate = $scope.today;
-			var authorID = $scope.select_author;
+            var authorID = $scope.select_author;
 			dataFactory.addBook(authorID, book).then(function (response) {
 	            getBooks();
                 $scope.toast_msg = $scope.showToast(response.data.message);

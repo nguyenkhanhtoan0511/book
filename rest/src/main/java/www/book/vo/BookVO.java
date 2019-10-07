@@ -11,6 +11,7 @@ public class BookVO {
     private Date publicationDate;
     private float price;
     private boolean isActive;
+    private Long author;
     private String authorFirstName;
     private String authorLastName;
 
@@ -25,6 +26,7 @@ public class BookVO {
         this.price = book.getPrice();
         this.isActive = book.getActive();
         if(book.getAuthor() != null){
+            this.author = book.getAuthor().getId();
             this.authorFirstName = book.getAuthor().getFirstName() ;
             this.authorLastName = book.getAuthor().getLastName() ;
         }
@@ -92,5 +94,13 @@ public class BookVO {
 
     public void setAuthorLastName(String authorLastName) {
         this.authorLastName = authorLastName;
+    }
+
+    public Long getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Long author) {
+        this.author = author;
     }
 }

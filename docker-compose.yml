@@ -1,0 +1,17 @@
+version: "2.1"
+services:
+  karaf:
+    image: ${KARAF_DOCKER_IMAGE_NAME:-karaf}
+    expose:
+      - "1099"
+      - "44444"
+      - "8101"
+      - "8181"
+    ports:
+      - "8101:8101"
+      - "1099:1099"
+      - "44444:44444"
+      - "8181:8181"
+    command: karaf
+    stdin_open: true
+    tty: true

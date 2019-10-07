@@ -105,9 +105,9 @@
 
 									<div class="form-group">
 										<label for="sel1">Select Author (select one):</label>
-										<select class="form-control" id="author" name="author" ng-model="book.authorLastName" required>
+										<select class="form-control" id="author" name="author" ng-model="book.author" required>
 											<option value="">- Select an author -</option>
-											<option ng-repeat="author in authors" value="{{author.lastName}}" >{{author.firstName}} {{author.lastName}}</option>
+											<option ng-repeat="author in authors" value="{{author.id}}" >{{author.firstName}} {{author.lastName}}</option>
 										</select>
 										<span style="color:red" ng-show="myForm.author.$invalid">
 											<span ng-show="myForm.author.$error.required">Please select author.</span>

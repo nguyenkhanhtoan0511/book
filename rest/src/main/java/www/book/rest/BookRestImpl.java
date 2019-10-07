@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class BookRestImpl implements BookRest{
 
@@ -65,9 +64,9 @@ public class BookRestImpl implements BookRest{
             bookFromDb.setPrice(bookVO.getPrice());
             bookFromDb.setPublicationDate(bookVO.getPublicationDate());
             bookFromDb.setActive(bookVO.isActive());
-
-            String author_id = bookVO.getAuthorLastName();
-            long author_long = Long.parseLong(author_id);
+//            String author_id = bookVO.getAuthorLastName();
+//            long author_long = Long.parseLong(author_id);
+            long author_long = bookVO.getAuthor();
             Author authorUpdate = m_authorService.get(author_long);
 
             bookFromDb.setAuthor(authorUpdate);
