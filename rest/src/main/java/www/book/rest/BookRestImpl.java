@@ -64,8 +64,6 @@ public class BookRestImpl implements BookRest{
             bookFromDb.setPrice(bookVO.getPrice());
             bookFromDb.setPublicationDate(bookVO.getPublicationDate());
             bookFromDb.setActive(bookVO.isActive());
-//            String author_id = bookVO.getAuthorLastName();
-//            long author_long = Long.parseLong(author_id);
             long author_long = bookVO.getAuthor();
             Author authorUpdate = m_authorService.get(author_long);
 

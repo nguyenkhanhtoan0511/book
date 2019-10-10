@@ -19,7 +19,6 @@
 
     <bean id="bookService" class="www.book.service.BookServiceImpl">
         <argument ref="bookDAO"/>
-        <argument ref="authorDAO"/>
     </bean>
 
     <bean id="authorService" class="www.book.service.AuthorServiceImpl">

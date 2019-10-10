@@ -2,7 +2,6 @@ package www.book.service;
 
 import www.book.api.Author;
 import www.book.api.Book;
-import www.book.dao.AuthorDAO;
 import www.book.dao.BookDAO;
 
 import java.util.List;
@@ -10,11 +9,9 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
 
     private BookDAO m_bookDAO;
-    private AuthorDAO m_authorDAO;
 
-    public BookServiceImpl(BookDAO bookDAO, AuthorDAO authorDAO) {
+    public BookServiceImpl(BookDAO bookDAO) {
         this.m_bookDAO = bookDAO;
-        this.m_authorDAO = authorDAO;
     }
 
     @Override

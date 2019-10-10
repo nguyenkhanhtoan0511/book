@@ -8,16 +8,16 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
     private AuthorDAO m_authorDAO;
 
-    public AuthorServiceImpl(AuthorDAO bookingDAO) {
-        this.m_authorDAO = bookingDAO;
+    public AuthorServiceImpl(AuthorDAO authorDAO) {
+        this.m_authorDAO = authorDAO;
     }
 
-    public AuthorDAO getBookingDAO() {
+    public AuthorDAO getAuthorDAO() {
         return m_authorDAO;
     }
 
-    public void setBookingDAO(AuthorDAO bookingDAO) {
-        m_authorDAO = bookingDAO;
+    public void setAuthorDAO(AuthorDAO authorDAO) {
+        m_authorDAO = authorDAO;
     }
 
     @Override

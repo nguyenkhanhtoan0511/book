@@ -203,7 +203,6 @@
                 $scope.toast_msg = $scope.showToast(response.data.message);
 	        })
 	        .catch(function(error) {
-	            console.log(error);
 	             $scope.toast_msg = $scope.showToast(error.data.message);
 	        });
 		}
@@ -211,14 +210,12 @@
 		$scope.updateBook = function(id, book){
 			const author = $scope.authors.find((author) => author.lastName === book.authorLastName);
             if (null != author) {
-                book.authorLastName = author.id;
+                book.author = author.id;
             }
 			dataFactory.updateBook(id, book).then(function(response) {
 				getBooks();
-				console.log(response);
                 $scope.toast_msg = $scope.showToast(response.data.message);
 			}).catch(function(error) {
-                console.log(error);
                 $scope.toast_msg = $scope.showToast(error.data.message);
 			});
 		}
@@ -228,7 +225,6 @@
 				getBooks();
             	$scope.toast_msg = $scope.showToast(response.data.message);
 			}).catch(function(error) {
-			    console.log(error);
 			    $scope.toast_msg = $scope.showToast(error.data.message);
 			});
 		}
@@ -315,7 +311,6 @@
             	$scope.toast_msg = $scope.showToast(response.data.message);
 	        })
 	        .catch(function(error) {
-	            console.log(error);
 	            $scope.toast_msg = $scope.showToast(error.data.message);
 	        });
 		}
@@ -324,9 +319,7 @@
 			dataFactory.updateAuthor(id, author).then(function(response) {
 				getAuthors();
             	$scope.toast_msg = $scope.showToast(response.data.message);
-
 			}).catch(function(error) {
-			    console.log(error);
 				$scope.toast_msg = $scope.showToast(error.data.message);
 			});
 		}
@@ -336,7 +329,6 @@
 				getAuthors();
 				$scope.toast_msg = $scope.showToast(response.data.message);
 			}).catch(function(error) {
-			    console.log(error);
 				$scope.toast_msg = $scope.showToast(error.data.message);
 			});
 		}

@@ -20,14 +20,14 @@ public class AuthorRestImpl implements AuthorRest {
 
     @Override
     public Response listAll() {
-        try{
+        try {
             List<AuthorVO> authorVOs = new ArrayList<>();
             List<Author> authors = m_authorService.listAll();
             for (Author author : authors) {
                 authorVOs.add(new AuthorVO(author));
             }
             return Response.ok().entity(authorVOs).build();
-        }catch(Exception e){
+        } catch (Exception e) {
             return printFailResponse("Listing author failed. " + e.getMessage());
         }
     }

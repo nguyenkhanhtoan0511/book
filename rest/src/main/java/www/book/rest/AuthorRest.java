@@ -1,7 +1,6 @@
 package www.book.rest;
 
 import www.book.api.Author;
-import www.book.vo.AuthorVO;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;

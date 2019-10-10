@@ -1,8 +1,5 @@
 package www.book.response;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 public class BookResponse {
 
     private String status;

@@ -105,9 +105,9 @@
 
 									<div class="form-group">
 										<label for="sel1">Select Author (select one):</label>
-										<select class="form-control" id="author" name="author" ng-model="book.author" required>
+										<select class="form-control" id="author" name="author" ng-model="book.authorLastName" required>
 											<option value="">- Select an author -</option>
-											<option ng-repeat="author in authors" value="{{author.id}}" >{{author.firstName}} {{author.lastName}}</option>
+											<option ng-repeat="author in authors" value="{{author.lastName}}" >{{author.firstName}} {{author.lastName}}</option>
 										</select>
 										<span style="color:red" ng-show="myForm.author.$invalid">
 											<span ng-show="myForm.author.$error.required">Please select author.</span>
@@ -195,16 +195,20 @@
 		</tr>
 		</tbody>
 	</table>
+	<div class="float-left ">
+		<label >Number per page: </label>
+		<select ng-model="numPerPage" ng-click="changeNumPerPage(numPerPage)">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="15">15</option>
+			<option value="20">20</option>
+		</select>
+	</div>
 	<ul class="pagination justify-content-end" >
-		<li class="page-item"><a class="page-link" href="#/" ng-click="previousPage()">Pre</a></li>
+		<li class="page-item"><a class="page-link" href="#/" ng-click="previousPage()">Prev</a></li>
 		<li class="page-item" ng-repeat="x in [].constructor(totalPages) track by $index"><a class="page-link" href="#/" ng-click="filterBooks($index+1)">{{$index+1}}</a></li>
 		<li class="page-item"><a class="page-link" href="#/" ng-click="nextPage()">Next</a></li>
 	</ul>
-	<div class="float-right ">
-		<label >Number per page: </label>
-		<input type="number" min="0" ng-model="numPerPage" autocomplete="nope" style="width: 75px">
-		<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="changeNumPerPage(numPerPage)">Change</button>
-	</div>
 </div>
 
 </body>
