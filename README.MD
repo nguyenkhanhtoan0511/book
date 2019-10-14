@@ -1,4 +1,13 @@
-# Build 
+# Requirement
+**Karaf version 4.2.6**
+**MariaDB**
+
+# Build
+    The build uses Apache Maven. Simply use:
+    mvn clean install
+
+
+# Build
     The build uses Apache Maven. Simply use:
     mvn clean install
 # Add config Datasource
@@ -24,7 +33,7 @@ feature:repo-add mvn:www.book/features/1.0-SNAPSHOT/xml
 ```ruby
 feature:install book-api
 ```
-- Notes check connect hibernate :
+- Notes check connect jdbc :
   - check DataSource
   ```ruby
     karaf@root()> service:list DataSource
