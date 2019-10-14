@@ -1,11 +1,11 @@
 # Requirement
 **Karaf version 4.2.6**
+
 **MariaDB**
 
 # Build
     The build uses Apache Maven. Simply use:
     mvn clean install
-
 
 # Build
     The build uses Apache Maven. Simply use:
