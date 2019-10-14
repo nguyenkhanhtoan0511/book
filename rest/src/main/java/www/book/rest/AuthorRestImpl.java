@@ -82,7 +82,7 @@ public class AuthorRestImpl implements AuthorRest {
             if(authorFromDb == null){
                 throw new Exception("Author with id " + id + " does not exist");
             }
-            if(!authorFromDb.getBooks().isEmpty()){
+            if(null != authorFromDb.getBooks() && !authorFromDb.getBooks().isEmpty()){
                 throw new Exception("The author id " + id + " can't delete. Author is still being used by some books.");
             }
             m_authorService.delete(id);
