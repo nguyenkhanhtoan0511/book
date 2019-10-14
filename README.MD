@@ -6,10 +6,6 @@
 # Build
     The build uses Apache Maven. Simply use:
     mvn clean install
-
-# Build
-    The build uses Apache Maven. Simply use:
-    mvn clean install
 # Add config Datasource
 **gedit file apache-karaf-4.2.6/etc/org.ops4j.datasource-book.cfg**
 
